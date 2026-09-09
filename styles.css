@@ -1,0 +1,155 @@
+/* =========================================================
+   PitchWire — Stylesheet
+   =========================================================
+
+   COLOR PALETTE
+   -------------
+   --color-chalk:        #F5F7F2   (page background)
+   --color-charcoal:     #1E2A22   (primary body text)
+   --color-pitch-green:  #2F6E42   (headings, accents, links)
+   --color-pitch-dark:   #234F31   (link hover)
+   --color-goal-gold:    #E8A93B   (highlight accent, scores, badges)
+   --color-grass-light:  #E3EDE1   (card/section backgrounds)
+   --color-muted:        #5C6B60   (secondary/quiet text)
+
+   FONT PALETTE
+   ------------
+   Headings: 'Barlow Condensed', Arial, sans-serif  (bold, scoreboard feel)
+   Body:     'Inter', -apple-system, sans-serif      (clean, readable)
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --color-chalk: #F5F7F2;
+  --color-charcoal: #1E2A22;
+  --color-pitch-green: #2F6E42;
+  --color-pitch-dark: #234F31;
+  --color-goal-gold: #E8A93B;
+  --color-grass-light: #E3EDE1;
+  --color-muted: #5C6B60;
+
+  --font-heading: 'Barlow Condensed', Arial, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-chalk);
+  color: var(--color-charcoal);
+  font-family: var(--font-body);
+  line-height: 1.7;
+}
+
+header {
+  padding: 3rem 1.5rem 2rem;
+  text-align: center;
+  background-color: var(--color-pitch-green);
+  border-bottom: 4px solid var(--color-goal-gold);
+}
+
+header .logo {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 2.25rem;
+  color: var(--color-chalk);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+header p.tagline {
+  color: var(--color-grass-light);
+  margin-top: 0.5rem;
+  font-size: 1rem;
+}
+
+main {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
+
+h1 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 2.5rem;
+  color: var(--color-charcoal);
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1.6rem;
+  color: var(--color-pitch-green);
+  margin-top: 2.5rem;
+  text-transform: uppercase;
+}
+
+p {
+  font-size: 1.05rem;
+  color: var(--color-charcoal);
+}
+
+.lead {
+  font-size: 1.15rem;
+  color: var(--color-muted);
+}
+
+section.card {
+  background-color: var(--color-grass-light);
+  border-radius: 8px;
+  padding: 1.5rem 1.75rem;
+  margin: 2rem 0;
+  border-left: 4px solid var(--color-goal-gold);
+}
+
+a {
+  color: var(--color-pitch-green);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+a:hover {
+  color: var(--color-pitch-dark);
+  border-bottom-color: var(--color-pitch-dark);
+}
+
+.social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.social-links li a {
+  display: inline-block;
+  padding: 0.55rem 1.1rem;
+  background-color: var(--color-goal-gold);
+  color: var(--color-charcoal);
+  border-radius: 4px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-bottom: none;
+}
+
+.social-links li a:hover {
+  background-color: var(--color-pitch-green);
+  color: var(--color-chalk);
+}
+
+footer {
+  text-align: center;
+  padding: 2rem 1.5rem;
+  color: var(--color-chalk);
+  background-color: var(--color-charcoal);
+  font-size: 0.9rem;
+}
