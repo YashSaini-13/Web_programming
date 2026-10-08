@@ -1,155 +1,260 @@
-/* =========================================================
-   PitchWire — Stylesheet
-   =========================================================
+/*
+  PitchWire — CSS Essential Training Assignment
+  Layout technique: Flexbox
+  The comments below explain the main CSS choices made for the assignment.
+*/
 
-   COLOR PALETTE
-   -------------
-   --color-chalk:        #F5F7F2   (page background)
-   --color-charcoal:     #1E2A22   (primary body text)
-   --color-pitch-green:  #2F6E42   (headings, accents, links)
-   --color-pitch-dark:   #234F31   (link hover)
-   --color-goal-gold:    #E8A93B   (highlight accent, scores, badges)
-   --color-grass-light:  #E3EDE1   (card/section backgrounds)
-   --color-muted:        #5C6B60   (secondary/quiet text)
-
-   FONT PALETTE
-   ------------
-   Headings: 'Barlow Condensed', Arial, sans-serif  (bold, scoreboard feel)
-   Body:     'Inter', -apple-system, sans-serif      (clean, readable)
-   ========================================================= */
-
-@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600&display=swap');
-
+/*
+  THEME VARIABLES (CSS custom properties):
+  Every color used on the site is stored in a variable here, so a theme is
+  just a different set of values for the same names.
+  :root holds the default (light) theme.
+*/
 :root {
-  --color-chalk: #F5F7F2;
-  --color-charcoal: #1E2A22;
-  --color-pitch-green: #2F6E42;
-  --color-pitch-dark: #234F31;
-  --color-goal-gold: #E8A93B;
-  --color-grass-light: #E3EDE1;
-  --color-muted: #5C6B60;
-
-  --font-heading: 'Barlow Condensed', Arial, sans-serif;
-  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --page-bg: #f4f6f8;        /* page background behind everything */
+  --text-color: #222;        /* normal body text */
+  --content-bg: white;       /* main article background */
+  --card-bg: #f8f9fa;        /* highlighted card background */
+  --header-bg: #14213d;      /* header and footer background */
+  --header-text: white;      /* text on the header and footer */
+  --sidebar-bg: #14213d;     /* sidebar background */
+  --sidebar-text: white;     /* text inside the sidebar */
+  --sidebar-border: rgba(255, 255, 255, 0.3); /* border of the sidebar news box */
+  --button-bg: #14213d;      /* social link buttons */
+  --button-text: white;
+  --accent: #fca311;         /* orange accent: hover, active link, card edge */
+  --accent-text: #14213d;    /* text placed on top of the accent color */
 }
 
+/*
+  DARK THEME:
+  When the body has the "dark_mode" class (added by script.js), these values
+  replace the light ones above. Because the whole stylesheet reads colors
+  through var(), nothing else needs to change.
+*/
+.dark_mode {
+  --page-bg: #0d1117;
+  --text-color: #e6e8eb;
+  --content-bg: #1b2230;
+  --card-bg: #263044;
+  --header-bg: #0a0f1c;
+  --header-text: #f0f0f0;
+  --sidebar-bg: #121a2c;
+  --sidebar-text: #f0f0f0;
+  --sidebar-border: rgba(255, 255, 255, 0.2);
+  --button-bg: #2c3a57;
+  --button-text: #f0f0f0;
+}
+
+/* Box sizing makes padding and borders part of an element's declared size. */
 * {
   box-sizing: border-box;
 }
 
+/* Basic page styles and a readable default font. */
 body {
   margin: 0;
-  background-color: var(--color-chalk);
-  color: var(--color-charcoal);
-  font-family: var(--font-body);
-  line-height: 1.7;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+  color: var(--text-color);
+  background: var(--page-bg);
+  /* Smooth fade between themes when the button is clicked. */
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
-header {
-  padding: 3rem 1.5rem 2rem;
-  text-align: center;
-  background-color: var(--color-pitch-green);
-  border-bottom: 4px solid var(--color-goal-gold);
+/* Header provides a full-width area for the logo and navigation. */
+.site-header {
+  background: var(--header-bg);
+  color: var(--header-text);
+  padding: 20px 6%;
 }
 
-header .logo {
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 2.25rem;
-  color: var(--color-chalk);
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-}
-
-header p.tagline {
-  color: var(--color-grass-light);
-  margin-top: 0.5rem;
-  font-size: 1rem;
-}
-
-main {
-  max-width: 680px;
+/*
+  FLEXBOX LAYOUT:
+  display: flex places the branding and navigation in the same row.
+  justify-content separates them across the available horizontal space.
+  align-items vertically centers the two areas.
+*/
+.header-content {
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 3rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+}
+
+/* Logo and tagline styles. */
+.logo {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.tagline {
+  margin: 2px 0 0;
+  font-size: 0.95rem;
+  opacity: 0.85;
+}
+
+/*
+  Navigation also uses Flexbox.
+  gap creates consistent space between each navigation link.
+*/
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.site-nav a {
+  color: var(--header-text);
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+}
+
+/* Pseudo-class adds a visual response when the user hovers over a link. */
+.site-nav a:hover,
+.site-nav a.active {
+  background: var(--accent);
+  color: var(--accent-text);
+}
+
+/* Theme toggle button: styled to match the nav links, with an accent outline. */
+.theme-toggle {
+  font: inherit;
+  cursor: pointer;
+  color: var(--header-text);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 7px 14px;
+  margin-left: 8px;
+}
+
+.theme-toggle:hover {
+  background: var(--accent);
+  color: var(--accent-text);
+}
+
+/*
+  MAIN PAGE LAYOUT:
+  Flexbox creates two columns:
+  - the larger content area
+  - the smaller sidebar
+*/
+.page-layout {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 30px;
+}
+
+/* flex: 1 allows the main article to take the remaining available space. */
+.content {
+  flex: 1;
+  min-width: 0;
+  background: var(--content-bg);
+  padding: 35px;
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+/* The sidebar keeps supporting information separate from the main content. */
+.sidebar {
+  flex: 0 0 280px;
+  background: var(--sidebar-bg);
+  color: var(--sidebar-text);
+  padding: 25px;
+  border-radius: 10px;
+}
+
+/* The highlighted card demonstrates spacing, borders, and background styling. */
+.card {
+  margin: 30px 0;
+  padding: 22px;
+  border-left: 5px solid var(--accent);
+  background: var(--card-bg);
+}
+
+/* Typography and spacing for headings. */
+h1,
+h2,
+h3 {
+  line-height: 1.2;
 }
 
 h1 {
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 2.5rem;
-  color: var(--color-charcoal);
-  margin-bottom: 1rem;
-  text-transform: uppercase;
-}
-
-h2 {
-  font-family: var(--font-heading);
-  font-weight: 600;
-  font-size: 1.6rem;
-  color: var(--color-pitch-green);
-  margin-top: 2.5rem;
-  text-transform: uppercase;
-}
-
-p {
-  font-size: 1.05rem;
-  color: var(--color-charcoal);
+  margin-top: 0;
+  font-size: 2.4rem;
 }
 
 .lead {
   font-size: 1.15rem;
-  color: var(--color-muted);
 }
 
-section.card {
-  background-color: var(--color-grass-light);
-  border-radius: 8px;
-  padding: 1.5rem 1.75rem;
-  margin: 2rem 0;
-  border-left: 4px solid var(--color-goal-gold);
-}
-
-a {
-  color: var(--color-pitch-green);
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: border-color 0.15s ease, color 0.15s ease;
-}
-
-a:hover {
-  color: var(--color-pitch-dark);
-  border-bottom-color: var(--color-pitch-dark);
-}
-
+/* Social links are another small Flexbox layout. */
 .social-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-top: 1.5rem;
-  padding: 0;
   list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
-.social-links li a {
+.social-links a {
   display: inline-block;
-  padding: 0.55rem 1.1rem;
-  background-color: var(--color-goal-gold);
-  color: var(--color-charcoal);
-  border-radius: 4px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  border-bottom: none;
+  padding: 8px 14px;
+  background: var(--button-bg);
+  color: var(--button-text);
+  text-decoration: none;
+  border-radius: 6px;
 }
 
-.social-links li a:hover {
-  background-color: var(--color-pitch-green);
-  color: var(--color-chalk);
+.social-links a:hover {
+  background: var(--accent);
+  color: var(--accent-text);
 }
 
+.sidebar-box {
+  margin-top: 25px;
+  padding: 15px;
+  border: 1px solid var(--sidebar-border);
+  border-radius: 8px;
+}
+
+/* Footer spans the bottom of the page. */
 footer {
   text-align: center;
-  padding: 2rem 1.5rem;
-  color: var(--color-chalk);
-  background-color: var(--color-charcoal);
-  font-size: 0.9rem;
+  padding: 25px;
+  background: var(--header-bg);
+  color: var(--header-text);
+}
+
+/*
+  RESPONSIVE LAYOUT:
+  On smaller screens, the two-column Flexbox layout becomes one column.
+  This follows the course's responsive-layout concepts.
+*/
+@media (max-width: 750px) {
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .page-layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    flex-basis: auto;
+    width: 100%;
+  }
+
+  .content {
+    width: 100%;
+  }
 }
